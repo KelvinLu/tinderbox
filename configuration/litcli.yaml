@@ -1,0 +1,14 @@
+# litcli.yaml
+
+# Modifies the behavior of litcli.
+#
+# Globally-configured options may be passed in as a single string, or as a list
+# of strings, to be included in all command line calls.
+#
+# e.g.;
+#
+# options: '--help'
+# options:
+#   - '--rpcserver'
+#   - 'somewhere.else:8443'
+---

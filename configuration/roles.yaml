@@ -1,0 +1,28 @@
+# roles.yaml
+
+# Role-based configuration of account permissions for macaroon creation.
+#
+# Profiles should be specified as lists of permissions.
+#
+# e.g.;
+#
+# read-only:
+#   - info:read
+#   - offchain:read
+---
+read-only:
+  - info:read
+  - offchain:read
+
+invoices:
+  - info:read
+  - invoices:read
+  - invoices:write
+  - offchain:read
+
+send-and-receive:
+  - info:read
+  - invoices:read
+  - invoices:write
+  - offchain:read
+  - offchain:write

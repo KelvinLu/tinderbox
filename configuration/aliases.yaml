@@ -1,0 +1,10 @@
+# aliases.yaml
+
+# Account aliases. This configuration should be expressed as a mapping of
+# aliases to account identifiers.
+#
+# e.g.;
+#
+# foo: '53e14ecabdf22ed3'
+# bar: 'fdfa3b3e6e41dcc7'
+---
