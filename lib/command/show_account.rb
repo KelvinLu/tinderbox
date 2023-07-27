@@ -5,6 +5,14 @@ class Tinderbox::Command::ShowAccount
 
   calling_convention(1..) do
     self.banner = 'Usage: show-account [options] <account id | account alias> ...'
+
+    self.on('--invoices', 'Show list of invoices') do
+      options[:display_list_invoices] = true
+    end
+
+    self.on('--payments', 'Show list of payments') do
+      options[:display_list_payments] = true
+    end
   end
 
   run do |options:, arguments:|
@@ -24,7 +32,23 @@ class Tinderbox::Command::ShowAccount
         Tinderbox.log.error("No account found for #{id_or_alias}")
         next
       when 1
-        matching_accounts.first.display(show_details: true)
+        account = matching_accounts.first
+
+        if options[:display_list_invoices] && options[:display_list_payments]
+          puts 'Invoices'.cyan.bold
+          puts '----------------'
+          account.display_list_invoices_or_payments(account.invoices)
+          puts
+          puts 'Payments'.magenta.bold
+          puts '----------------'
+          account.display_list_invoices_or_payments(account.payments)
+        elsif options[:display_list_invoices]
+          account.display_list_invoices_or_payments(account.invoices)
+        elsif options[:display_list_payments]
+          account.display_list_invoices_or_payments(account.payments)
+        else
+          account.display(show_details: true)
+        end
       else
         Tinderbox.log.error("Multiple account matches for #{id_or_alias}")
         raise 'encountered unexpected output'

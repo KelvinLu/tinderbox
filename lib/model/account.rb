@@ -55,12 +55,45 @@ class Tinderbox::Account
       puts "#{'Initial balance:'} #{initial_balance} satoshi"
       puts "#{'Current balance:'.bold} #{current_balance.to_s.brown.bold} satoshi"
       puts
-      puts "#{'Invoice count:'} #{invoices.count.to_s.cyan}"
-      puts "#{'Payment count:'} #{payments.count.to_s.magenta}"
+      display_net_invoices_and_payments
     end
 
     puts
     puts '...'
     puts
+  end
+
+  def display_net_invoices_and_payments
+    invoices_total = invoices.filter { |i| i.fetch('state') == 'SUCCEEDED' }.sum { |i| i.fetch('full_amount').to_i }
+    payments_total = payments.filter { |p| p.fetch('state') == 'SUCCEEDED' }.sum { |p| p.fetch('full_amount').to_i }
+
+    net_amount = invoices_total - payments_total
+    net_amount = (net_amount < 0) ?  net_amount.to_s.red.bold : net_amount.to_s.green.bold
+
+    puts "#{'Net amount:'.bold} #{net_amount} satoshi"
+    puts "#{'Invoice count:'} #{invoices.count.to_s.cyan} (#{invoices_total.to_s.cyan} satoshi)"
+    puts "#{'Payment count:'} #{payments.count.to_s.magenta} (#{payments_total.to_s.magenta} satoshi)"
+  end
+
+  def display_list_invoices_or_payments(items)
+    items.each do |item|
+      state = item.fetch('state')
+      amount = item.fetch('full_amount')
+      payment_hash = item.fetch('hash')
+
+      state =
+        case state
+        when 'SUCCEEDED'
+          ('%-16.16s' % state).green
+        when 'FAILED'
+          ('%-16.16s' % state).red
+        when 'IN_FLIGHT'
+          ('%-16.16s' % state).brown
+        else
+          ('%-16.16s' % state)
+        end
+
+      puts "#{state} | #{('%16.16s' % amount).cyan.bold} satoshi | #{payment_hash}"
+    end
   end
 end

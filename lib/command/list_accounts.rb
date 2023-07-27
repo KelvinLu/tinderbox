@@ -6,7 +6,7 @@ class Tinderbox::Command::ListAccounts
   calling_convention(0) do
     self.banner = 'Usage: list-accounts [options]'
 
-    self.on('--details') do
+    self.on('--details', 'Show more details') do
       options[:details] = true
     end
   end
