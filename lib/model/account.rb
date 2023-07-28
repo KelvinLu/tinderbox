@@ -64,18 +64,21 @@ class Tinderbox::Account
   end
 
   def display_net_invoices_and_payments
-    invoices_total = invoices.filter { |i| i.fetch('state') == 'SUCCEEDED' }.sum { |i| i.fetch('full_amount').to_i }
     payments_total = payments.filter { |p| p.fetch('state') == 'SUCCEEDED' }.sum { |p| p.fetch('full_amount').to_i }
 
-    net_amount = invoices_total - payments_total
-    net_amount = (net_amount < 0) ?  net_amount.to_s.red.bold : net_amount.to_s.green.bold
-
-    puts "#{'Net amount:'.bold} #{net_amount} satoshi"
-    puts "#{'Invoice count:'} #{invoices.count.to_s.cyan} (#{invoices_total.to_s.cyan} satoshi)"
+    puts "#{'Invoice count:'} #{invoices.count.to_s.cyan}"
     puts "#{'Payment count:'} #{payments.count.to_s.magenta} (#{payments_total.to_s.magenta} satoshi)"
   end
 
-  def display_list_invoices_or_payments(items)
+  def display_list_invoices(items)
+    items.each do |item|
+      payment_hash = item.fetch('hash')
+
+      puts payment_hash
+    end
+  end
+
+  def display_list_payments(items)
     items.each do |item|
       state = item.fetch('state')
       amount = item.fetch('full_amount')

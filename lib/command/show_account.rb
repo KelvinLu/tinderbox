@@ -37,15 +37,15 @@ class Tinderbox::Command::ShowAccount
         if options[:display_list_invoices] && options[:display_list_payments]
           puts 'Invoices'.cyan.bold
           puts '----------------'
-          account.display_list_invoices_or_payments(account.invoices)
+          account.display_list_invoices(account.invoices)
           puts
           puts 'Payments'.magenta.bold
           puts '----------------'
-          account.display_list_invoices_or_payments(account.payments)
+          account.display_list_payments(account.payments)
         elsif options[:display_list_invoices]
-          account.display_list_invoices_or_payments(account.invoices)
+          account.display_list_invoices(account.invoices)
         elsif options[:display_list_payments]
-          account.display_list_invoices_or_payments(account.payments)
+          account.display_list_payments(account.payments)
         else
           account.display(show_details: true)
         end
