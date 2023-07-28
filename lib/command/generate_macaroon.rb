@@ -21,7 +21,7 @@ class Tinderbox::Command::GenerateMacaroon
     macaroon_filepath = Pathname.new(File.expand_path(macaroon_filepath)) unless macaroon_filepath.absolute?
 
     if macaroon_filepath.exist?
-      raise "path must be to a file, not a directory" if macaroon_filepath.directory?
+      raise 'path must be to a file, not a directory' if macaroon_filepath.directory?
       raise "#{macaroon_filepath} not writable" unless macaroon_filepath.writable?
     else
       raise "#{macaroon_filepath.dirname} not writable" unless macaroon_filepath.dirname.writable?
