@@ -10,4 +10,8 @@ module Tinderbox::AccountAlias
   def self.add_alias(account_id, account_alias)
     File.write(Tinderbox::Configuration::AccountAlias.filepath, "\n'#{account_alias}': '#{account_id}'", mode: 'a+')
   end
+
+  def self.reload
+    Tinderbox::Configuration::AccountAlias.reload
+  end
 end

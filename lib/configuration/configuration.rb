@@ -1,4 +1,5 @@
 require 'yaml'
+require 'pathname'
 
 module Tinderbox::Configuration
   def self.included(base)
@@ -21,6 +22,10 @@ module Tinderbox::Configuration
 
       @filepath = filepath
       @configuration = YAML.safe_load(File.read(filepath))
+    end
+
+    def reload_configuration
+      @configuration = YAML.safe_load(File.read(@filepath))
     end
   end
 end

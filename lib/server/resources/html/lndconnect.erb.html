@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tinderbox | Account <%= account_id %></title>
+    <style>
+      body {
+        background-color: #2596be;
+        color: #eeeee4;
+        font-family: "Lucida Console", "Courier New", monospace;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      span.bold {
+        font-weight: bold;
+      }
+
+      span.italic {
+        font-style: italic;
+      }
+
+      span.color-lavender {
+        color: #b48fff;
+      }
+
+      span.color-gray {
+        color: #bdc9cb;
+      }
+
+      div.item-card {
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+
+        background-color: #1b83a7;
+        font-size: 0.8em;
+      }
+
+      div#account {
+        width: 28%;
+        margin: 0 2%;
+        float: left;
+      }
+
+      div#qr-code-container {
+        width: 62%;
+        margin: 0 2%;
+        float: right;
+      }
+
+      div.button#exit {
+        position: absolute;
+        float: right;
+
+        top: 0.5em;
+        right: 0.5em;
+      }
+
+      div.button {
+        display: inline-block;
+
+        padding: 0.5em;
+        margin: 0.5em;
+
+        background-color: #473fe0;
+        font-size: 0.8em;
+      }
+
+      div.button:hover {
+        background-color: #281891;
+      }
+
+      img#qr-code {
+        height: 80vh;
+      }
+
+      pre#lndconnect-url {
+        white-space: pre-wrap;
+        word-break: break-all;
+
+        width: 100%;
+      }
+
+      pre.obscured {
+        filter: blur(3px) contrast(0.8);
+      }
+
+      img.obscured {
+        filter: blur(10px) contrast(0.4);
+      }
+
+      pre.obscured:hover {
+        filter: blur(0px) contrast(1.0);
+      }
+
+      img.obscured:hover {
+        filter: blur(0px) contrast(1.0);
+        cursor: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>lndconnect</h1>
+      <a href="/account/<%= account_id %>">
+        <div id="exit" class="button">
+          <span class="bold">Return to account</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <div id="account" class="item-card">
+        Account <span class="color-gray"><%= account_id %></span>
+        <span> - </span>
+        <span class="bold color-lavender"><%= account_role %></span>
+        </br></br>
+        <span class="bold color-gray"><%= host %></span><span>:</span><span class="italic color-gray"><%= port %></span>
+        <hr/>
+        <a href="<%= lndconnect_url %>">
+          <pre id="lndconnect-url" class="obscured">
+            <%= lndconnect_url %>
+          </pre>
+        </a>
+      </div>
+      <div id="qr-code-container" style="text-align: center;">
+        <img id="qr-code" class="obscured" src="data:image/png;base64,<%= image_png_content %>"></img>
+      </div>
+    </div>
+  </body>
+</html>

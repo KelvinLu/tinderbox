@@ -27,4 +27,9 @@ module Tinderbox::Configuration::AccountAlias
         configuration
       end
   end
+
+  def self.reload
+    reload_configuration
+    @account_aliases = nil
+  end
 end

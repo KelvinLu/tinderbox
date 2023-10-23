@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tinderbox | Account <%= account_id %></title>
+    <style>
+      body {
+        background-color: #2596be;
+        color: #eeeee4;
+        font-family: "Lucida Console", "Courier New", monospace;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        color: #eeeee4;
+        font-family: "Lucida Console", "Courier New", monospace;
+        border: 0;
+      }
+
+      span.color-gray {
+        color: #bdc9cb;
+      }
+
+      button.danger {
+        background-color: #ed1a45;
+      }
+
+      button.danger:hover {
+        background-color: #e0543f;
+        cursor: pointer;
+      }
+
+      div.button {
+        display: inline-block;
+
+        padding: 0.5em;
+        margin: 0.5em;
+
+        background-color: #473fe0;
+        font-size: 0.8em;
+      }
+
+      div.button:hover {
+        background-color: #281891;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="text-align: center;">
+      <h3>Are you sure you want to remove account <span class="color-gray"><%= account_id %></span> ...&quest;</h3>
+      <hr/>
+      <form action="/command/remove-account" method=post>
+        <input type="hidden" name="account-id" value="<%= account_id %>"/>
+        <button class="danger" type="submit">
+          Remove the account
+        </button>
+      </form>
+      <a href="/account/<%= account_id %>">
+        <div class="button">
+          <span>Cancel</span>
+        </div>
+      </a>
+    </div>
+  </body>
+</html>

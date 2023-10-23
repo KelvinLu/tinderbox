@@ -38,7 +38,7 @@ class Tinderbox::Account
     output.fetch('accounts').map do |account|
       self.new(
         account,
-        account_alias: Tinderbox::AccountAlias.get_alias(account.fetch('id'))
+        account_alias: Tinderbox::AccountAlias.get_alias(account.fetch('id')).tap { |x| $stderr.puts "alias #{x.inspect} #{account.fetch('id')}" }
       )
     end
   end

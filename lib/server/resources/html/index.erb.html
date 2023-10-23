@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tinderbox</title>
+    <style>
+      body {
+        background-color: #2596be;
+        color: #eeeee4;
+        font-family: "Lucida Console", "Courier New", monospace;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      span.bold {
+        font-weight: bold;
+      }
+
+      span.italic {
+        font-style: italic;
+      }
+
+      span.color-amber {
+        color: #ffbf00;
+      }
+
+      span.color-slate {
+        color: #b4d3db;
+      }
+
+      span.color-lavender {
+        color: #b48fff;
+      }
+
+      span.color-gray {
+        color: #bdc9cb;
+      }
+
+      div.row {
+        display: inline-block;
+        box-sizing: border-box;
+
+        width: 100%;
+      }
+
+      div#accounts-header {
+        width: 46%;
+        margin: 0 2%;
+        float: left;
+      }
+
+      div#account-buttons {
+        width: 46%;
+        margin: 0 2%;
+        float: right;
+      }
+
+      div#account-list {
+        width: 28%;
+        margin: 0 2%;
+        float: left;
+      }
+
+      div#balances-and-transactions {
+        width: 62%;
+        margin: 0 2%;
+        float: right;
+      }
+
+      div.item-card {
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+
+        background-color: #1b83a7;
+        font-size: 0.8em;
+      }
+
+      div.item-card:hover {
+        background-color: #136171;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tinderbox</h1>
+
+    <div>
+      <div id="account-list" class="column">
+        <div class="row">
+          <div id="accounts-header">
+            <h2>Accounts</h2>
+          </div>
+          <div id="account-buttons">
+            <a href="/create-account">
+              <div class="item-card" style="text-align: center;"><span class="bold color-gray">Create account</span></div>
+            </a>
+          </div>
+        </div>
+        <% accounts.sort_by { |account| account.last_update }.reverse_each do |account| %>
+        <a href="/account/<%= account.id %>">
+          <div class="item-card">
+            <div>ID: <span class="bold"><%= account.id %></span></div>
+            <% unless account.account_alias.nil? %>
+            <div>Alias: <span class="bold"><%= account.account_alias %></span></div>
+            <% end %>
+            </br>
+            <div>Balance: <span class="bold color-amber"><%= account.current_balance %> satoshi</span></div>
+            <div>Initial: <span class="italic color-gray"><%= account.initial_balance %> satoshi</span></div>
+            </br>
+            <div>
+              <span>
+                Invoices: <span class="color-slate"><%= account.invoices.count %></span>
+              </span>
+              <span> - </span>
+              <span>
+                Payments: <span class="color-lavender"><%= account.payments.count %></span>
+              </span>
+            </div>
+            </br>
+            <div>Last update: <span class="italic color-gray"><%= account.last_update %></span></div>
+            <div>Expiration: <span class="italic color-gray"><%= account.expiration_date %></span></div>
+          </div>
+        </a>
+        <% end %>
+      </div>
+      <div id="balances-and-transactions" class="column">
+        <div>
+          <h2>Balances</h2>
+          <div>Total balance: <span class="bold color-amber"><%= total_balance %> satoshi</span></div>
+          <div>Total initial balance: <span class="bold color-amber"><%= total_initial_balance %> satoshi</span></div>
+        </div>
+        <hr/>
+        <div>
+          <h2>Transactions</h2>
+          <div>Invoices: <span class="color-slate"><%= invoices.count %></span></div>
+          <div>Payments: <span class="color-lavender"><%= payments.count %></span></div>
+          </br>
+          <div>Total payment amount: <span class="bold color-lavender"><%= payments_total %> satoshi</span></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

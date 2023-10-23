@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tinderbox</title>
+    <style>
+      body {
+        background-color: #2596be;
+        color: #eeeee4;
+        font-family: "Lucida Console", "Courier New", monospace;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      input {
+        background-color: #b4d3db;
+        color: black;
+        font-family: "Lucida Console", "Courier New", monospace;
+      }
+
+      button {
+        color: #eeeee4;
+        font-family: "Lucida Console", "Courier New", monospace;
+        border: 0;
+      }
+
+      div.row {
+        display: inline-block;
+        box-sizing: border-box;
+
+        width: 100%;
+      }
+
+      div.button {
+        display: inline-block;
+
+        padding: 0.5em;
+        margin: 0.5em;
+
+        background-color: #473fe0;
+        font-size: 0.8em;
+      }
+
+      div.button:hover {
+        background-color: #281891;
+      }
+
+      div.button#exit {
+        position: absolute;
+        float: right;
+
+        top: 0.5em;
+        right: 0.5em;
+      }
+
+      div.item-container {
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+
+        background-color: #1b83a7;
+
+        font-size: 0.8em;
+      }
+
+      button {
+        display: inline-block;
+
+        padding: 0.5em;
+        margin: 0.5em;
+
+        background-color: #473fe0;
+        font-size: 0.8em;
+      }
+
+      button:hover {
+        background-color: #281891;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <h1>Create account</h1>
+      <a href="/">
+        <div id="exit" class="button">
+          <span class="bold">Return home</span>
+        </div>
+      </a>
+    </div>
+    <div class="item-container">
+      <form action="/command/create-account" method=post>
+        <label for="alias">Alias (optional)</label>
+        <input type="text" id="alias" name="alias"/>
+        <hr/>
+        <label for="alias">Initial balance (minimum 1 satoshi)</label>
+        <input type="number" min="1" id="initial-balance" name="initial-balance"/>
+        <span> satoshi</span>
+        <hr/>
+        <label for="alias">Expiration (optional)</label>
+        <input type="datetime-local" id="expiration" name="expiration"/>
+        <hr/>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
