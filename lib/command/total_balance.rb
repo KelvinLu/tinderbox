@@ -20,7 +20,8 @@ class Tinderbox::Command::TotalBalance
     puts "#{'Total balance:'.bold} #{total_balance.to_s.brown.bold} satoshi"
 
     if options[:details]
-      puts "#{'Total initial balance:'.italic} #{total_balance.to_s.brown.underline} satoshi"
+      total_initial_balance = accounts.sum(&:initial_balance)
+      puts "#{'Total initial balance:'.italic} #{total_initial_balance.to_s.brown.underline} satoshi"
       puts
 
       invoices = accounts.map(&:invoices).flatten
