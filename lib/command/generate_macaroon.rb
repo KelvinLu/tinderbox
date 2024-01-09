@@ -8,6 +8,10 @@ class Tinderbox::Command::GenerateMacaroon
 
   calling_convention(3) do
     self.banner = 'Usage: generate-macaroon [options] <account id | account alias> <role> <macaroon filepath>'
+
+    self.on('--tmp-directory=DIRECTORY', 'Directory for storing temporary files') do |directory|
+      options[:tmp_directory] = directory
+    end
   end
 
   run do |options:, arguments:|
@@ -36,7 +40,7 @@ class Tinderbox::Command::GenerateMacaroon
       puts "  - #{permission.italic}"
     end
 
-    Dir.mktmpdir do |tmpdir|
+    Dir.mktmpdir(nil, options[:tmp_directory]) do |tmpdir|
       tmpfile = File.join(tmpdir, 'tmp.macaroon')
 
       Tinderbox::Calls.lncli_bakemacaroon(filepath: tmpfile, permissions: permissions)

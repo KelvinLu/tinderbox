@@ -27,6 +27,10 @@ class Tinderbox::Command::Server
       options[:macaroon_directory] = directory
     end
 
+    self.on('--tmp-directory=DIRECTORY', 'Directory for storing temporary files') do |directory|
+      options[:tmp_directory] = directory
+    end
+
     self.on('--lndconnect=EXECUTABLE', 'Path to the lndconnect executable') do |filepath|
       options[:lndconnect_filepath] = filepath
     end
@@ -65,6 +69,7 @@ class Tinderbox::Command::Server
         node_port: node_port,
 
         macaroon_directory: macaroon_directory,
+        tmp_directory: options[:tmp_directory],
         lndconnect_filepath: lndconnect_filepath,
       )
 

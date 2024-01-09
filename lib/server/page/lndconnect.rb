@@ -8,7 +8,7 @@ class Tinderbox::Page::LNDConnect < OpenStruct
     macaroon_filepath = File.join(Tinderbox::Server.macaroon_directory, "tinderbox-#{account_id}.#{account_role.gsub(/[^\w_-]/, '')}.macaroon")
 
     image_png_content =
-      Dir.mktmpdir do |tmpdir|
+      Dir.mktmpdir(nil, Tinderbox::Server.tmp_directory) do |tmpdir|
         unless File.exist?(macaroon_filepath)
           tmpfile = File.join(tmpdir, 'tmp.macaroon')
 

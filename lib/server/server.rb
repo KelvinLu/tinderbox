@@ -14,6 +14,7 @@ class Tinderbox::Server
     node_host:,
     node_port:,
     macaroon_directory:,
+    tmp_directory:,
     lndconnect_filepath:
   )
     @server = WEBrick::HTTPServer.new(
@@ -26,6 +27,7 @@ class Tinderbox::Server
     @@node_port = node_port
 
     @@macaroon_directory = macaroon_directory
+    @@tmp_directory = tmp_directory
     @@lndconnect_filepath = lndconnect_filepath
   end
 
@@ -39,6 +41,10 @@ class Tinderbox::Server
 
   def self.macaroon_directory
     @@macaroon_directory
+  end
+
+  def self.tmp_directory
+    @@tmp_directory
   end
 
   def self.lndconnect_filepath
